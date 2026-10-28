@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=65", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "strobesync-client"
+version = "0.1.0"
+description = "Serial client for StrobeSync STM32 and AVR hybrid PWM firmware"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = ["pyserial>=3.5,<4"]
+authors = [{ name = "Rasit Cesur" }]
+license = { text = "MIT" }
+classifiers = ["Programming Language :: Python :: 3", "License :: OSI Approved :: MIT License"]
+
+[tool.setuptools.packages.find]
+include = ["strobesync*"]

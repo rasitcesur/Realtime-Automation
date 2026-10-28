@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+build/
+dist/
+
+# .NET / IDE
+bin/
+obj/
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+
+# Embedded toolchains
+*.elf
+*.hex
+*.bin
+*.map
+*.o
+*.d
+*.lst
+.pio/
+Debug/
+Release/
+
+# OS
+.DS_Store
+Thumbs.db
