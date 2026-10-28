@@ -1,0 +1,26 @@
+name: Linux JNI build and integration tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: OpenJDK ${{ matrix.java }} / Ubuntu
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        java: ['21', '25']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+      - name: Install build dependencies
+        run: sudo apt-get update && sudo apt-get install -y g++ libnuma-dev
+      - name: Build and run JNI tests
+        run: MARCH_NATIVE=0 ./scripts/test-linux.sh
+      - name: Test JVM version-aware demo runner
+        run: HEAP_MIN=128m HEAP_MAX=128m ./scripts/run-linux.sh

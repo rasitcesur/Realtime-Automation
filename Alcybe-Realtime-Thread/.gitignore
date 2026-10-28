@@ -1,0 +1,10 @@
+/build/
+*.class
+*.so
+*.o
+*.a
+*.log
+*.hs_err_pid*
+.idea/
+.vscode/
+.DS_Store
