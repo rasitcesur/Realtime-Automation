@@ -1,0 +1,13 @@
+/build/
+*.class
+*.so
+*.dylib
+*.dll
+*.o
+*.obj
+*.log
+*.hprof
+*.prof
+.idea/
+.vscode/
+.DS_Store

@@ -1,0 +1,53 @@
+name: Cross-platform JNI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install tools
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ libnuma-dev
+      - name: Test V4L2 and JNI
+        run: ./scripts/test-linux.sh
+      - name: Test portable core with a mock camera
+        run: ./scripts/test-portable-linux.sh
+
+  macos:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Compile and test macOS JNI
+        run: ./scripts/test-macos.sh
+
+  windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          install: >-
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-ninja
+      - name: Compile and test MinGW JNI
+        shell: pwsh
+        run: |
+          $env:PATH = "C:\msys64\ucrt64\bin;" + $env:PATH
+          & .\scripts\test-windows.ps1
